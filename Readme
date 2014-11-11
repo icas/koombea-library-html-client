@@ -1,1 +1,6 @@
-npm install
+**Installation**
+
+- npm install
+- gulp dev
+- open localhost:5000
+
