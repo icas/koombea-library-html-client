@@ -63,10 +63,14 @@ gulp.task('views', function() {
 
 // Dev task
 gulp.task('dev', function() {
+  gulp.run('views');
+  gulp.run('lint');
+  gulp.run('browserify');
   // Start webserver
   server.listen(serverport);
   // Start live reload
   lrserver.listen(livereloadport);
+
   // Run the watch task, to keep taps on changes
   gulp.run('watch');
 });
