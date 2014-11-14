@@ -13,6 +13,8 @@ var embedlr = require('gulp-embedlr'),
     livereloadport = 35729,
     serverport = 5000;
 
+var sass = require('gulp-sass');
+
 // JSHint task
 gulp.task('lint', function() {
   gulp.src('./app/scripts/*.js')
@@ -35,6 +37,14 @@ gulp.task('browserify', function() {
   .pipe(gulp.dest('dist/js'));
 });
 
+
+
+gulp.task('sass', function () {
+    gulp.src('app/stylesheets/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('dist/styles'));
+});
+
 gulp.task('watch', ['lint'], function() {
   // Watch our scripts
   gulp.watch(['app/scripts/*.js', 'app/scripts/**/*.js'],[
@@ -45,6 +55,8 @@ gulp.task('watch', ['lint'], function() {
   gulp.watch(['app/index.html', 'app/views/**/*.html'], [
     'views'
   ]);
+  gulp.watch('app/stylesheets/*.scss', ['sass']);
+
 });
 
 // Views task
@@ -66,6 +78,7 @@ gulp.task('dev', function() {
   gulp.run('views');
   gulp.run('lint');
   gulp.run('browserify');
+  gulp.run('sass');
   // Start webserver
   server.listen(serverport);
   // Start live reload
